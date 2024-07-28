@@ -1,7 +1,17 @@
 package com.felipemelozx.championship_management_system.entity;
 
-import jakarta.persistence.*;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.GenerationType;
+
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,12 +27,15 @@ public class User {
   private String email;
   private String password;
   private Byte age;
-  private String team;
+  
+  @ManyToOne
+  @JoinColumn(name = "team_id")
+  private Team team;
 
   public User() {
   }
 
-  public User(UUID id, String name, String email, String password, Byte age, String team) {
+  public User(UUID id, String name, String email, String password, Byte age, Team team) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -71,11 +84,11 @@ public class User {
     this.age = age;
   }
 
-  public String getTeam() {
+  public Team getTeam() {
     return team;
   }
 
-  public void setTeam(String team) {
+  public void setTeam(Team team) {
     this.team = team;
   }
 }
